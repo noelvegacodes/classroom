@@ -7,7 +7,7 @@
 	const { form, enhance, errors } = superForm(data.form);
 </script>
 
-<main class="h-screen w-screen grid place-items-center">
+<main class="flex-1 grid place-items-center">
 	<form
 		method="POST"
 		use:enhance
