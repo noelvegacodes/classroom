@@ -6,8 +6,10 @@ import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient();
 
 export const handle = (async ({ event, resolve }) => {
+	// Add prisma to the locals object
 	event.locals.prisma = prisma;
 
+	// Decode the token, null if invalid or missing
 	const token = event.cookies.get('token');
 	let decodedToken = null;
 	if (token) {
@@ -18,9 +20,9 @@ export const handle = (async ({ event, resolve }) => {
 		}
 	}
 
-	// Set the user in the locals
+	// Add the user to the locals object
 	event.locals.user = decodedToken as User | null;
 
-	const response = await resolve(event);
-	return response;
+	// Resolve the request
+	return await resolve(event);
 }) satisfies Handle;
